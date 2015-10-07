@@ -1,0 +1,183 @@
+################# cpp files path/header files path/lib or exe name #################
+#Target name
+[target]
+
+	#Name of target, without the extension
+	var name = "exportingexe"
+	
+	#Type of target (LIB or EXE)
+	var type = "EXE"	
+
+#cpp files to be processed
+[include]
+	+ src/*.cpp       
+
+#Dependency headers path
+[dep_includes]
+	#Dependency components includes and self includes
+	+ src/
+        + ../.manage/
+        + ../lib.library1/src/
+        + ../lib.library2/src/
+        + ../lib.library3/src/
+	
+################# Dependent libs #################	
+
+#Dependency libs
+[dep_libs]
+	# + folder name of library "/." target name of the library
+        # static linking with libs exporting actually on behalf of the exe
+	+ lib.library1/.library1
+        + lib.library2/.library2
+        + lib.library3/.library3
+        
+#List of obj files to be linked
+[dep_objs]
+
+################# Test files path/header files path #################
+#cpp files to be processed
+[test_include]
+	+ src/*/*.cpt
+
+#Dependency headers path
+[test_dep_includes]    
+	#Dependency components includes and self includes
+    
+################# Test Dependent libs #################	
+#Dependency libs
+[test_dep_libs]    
+	# + folder name of library "/." target name of the library
+
+#List of obj files to be linked
+[test_dep_objs]
+	
+################# path to code.TallyWorld folder #################
+[basefolder]
+	var path = "../"
+	
+################# Block to specify post/pre build commands #################
+#Use $(out) variable to get the path of your build
+#Ex: If you did "maya debug" in windows then "out" = "bin/win/debug"
+
+#Windows pre build block
+[pre_build_win]
+
+#Linux pre build block
+[pre_build_lin]
+
+#Mac pre build block
+[pre_build_mac]
+
+#Windows post build block
+[post_build_win]
+	#Ex: exec cp $(out)/$(name).lib ../
+	#Equivalent to cp bin/win/debug/base.lib  ../ 	(in windows)
+        #exec cp ../dll.dynamic/bin/win/debug/dynamic.dll  bin/win/debug/
+        #exec cp ../dll.dynamic/bin/win/release/dynamic.dll  bin/win/release/
+
+#Linux post build block
+[post_build_lin]
+	#Ex: exec cp $(out)/$(name).a ../
+	#Equivalent to cp bin/lin/debug/base.a  ../ 	(in linux)    
+        #exec cp ../dll.dynamic/bin/linux/debug64/dynamic.so  bin/linux/debug64/
+        #exec cp ../dll.dynamic/bin/linux/release64/dynamic.so  bin/linux/release64/
+#Mac post build block
+[post_build_mac]
+	#Ex: exec cp $(out)/$(name).a ../
+	#Equivalent to cp bin/mac/debug/base.a  ../ 	(in mac)    
+	
+
+################# Block to specify user defined compiler/linker flags #################
+
+#codecheck flags
+[codecheck_flags]
+	var module_cc_flag = ""
+
+#Windows compiler flags
+[win_compiler_flags]
+	var my_compiler_debug_flags = "/DLIB_IMPLEMENTATION"
+	var my_compiler_debug64_flags = "/DLIB_IMPLEMENTATION"
+	var my_compiler_release_flags = "/DLIB_IMPLEMENTATION"
+	var my_compiler_release64_flags = "/DLIB_IMPLEMENTATION"
+	
+#Linux compiler flags
+[lin_compiler_flags]
+	var my_compiler_debug_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_debug64_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_release_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_release64_flags = "-DLIB_IMPLEMENTATION"
+    
+#Mac compiler flags
+[mac_compiler_flags]
+	var my_compiler_debug_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_debug64_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_release_flags = "-DLIB_IMPLEMENTATION"
+	var my_compiler_release64_flags = "-DLIB_IMPLEMENTATION"
+
+#Windows linker flags	
+[win_linker_flags]
+	var my_linker_debug_flags = ""
+	var my_linker_debug64_flags = ""
+	var my_linker_release_flags = ""
+	var my_linker_release64_flags = ""
+	
+#Linux compiler flags
+[lin_linker_flags]
+	var my_linker_debug_flags       = "-rdynamic"#"-Wl,--export_dynamic"
+	var my_linker_debug64_flags     = "-rdynamic"#"-Wl,--export_dynamic"
+	var my_linker_release_flags     = "-rdynamic"#"-Wl,--export_dynamic"
+	var my_linker_release64_flags   = "-rdynamic"#"-Wl,--export_dynamic"
+    
+#Mac compiler flags
+[mac_linker_flags]
+	var my_linker_debug_flags = ""
+	var my_linker_debug64_flags = ""
+	var my_linker_release_flags = ""
+	var my_linker_release64_flags = ""   
+	
+######################################## Test Flags ########################################
+#Windows compiler flags
+[test_win_compiler_flags]
+	var my_compiler_debug_flags = ""
+	var my_compiler_debug64_flags = ""
+	var my_compiler_release_flags = ""
+	var my_compiler_release64_flags = ""
+	
+#Linux compiler flags
+[test_lin_compiler_flags]
+	var my_compiler_debug_flags = ""
+	var my_compiler_debug64_flags = ""
+	var my_compiler_release_flags = ""
+	var my_compiler_release64_flags = ""
+    
+#Mac compiler flags
+[test_mac_compiler_flags]
+	var my_compiler_debug_flags = ""
+	var my_compiler_debug64_flags = ""
+	var my_compiler_release_flags = ""
+	var my_compiler_release64_flags = ""
+
+#Windows linker flags	
+[test_win_linker_flags]
+	var my_linker_debug_flags = ""
+	var my_linker_debug64_flags = ""
+	var my_linker_release_flags = ""
+	var my_linker_release64_flags = ""
+	
+#Linux compiler flags
+[test_lin_linker_flags]
+	var my_linker_debug_flags = ""
+	var my_linker_debug64_flags = ""
+	var my_linker_release_flags = ""
+	var my_linker_release64_flags = ""
+    
+#Mac compiler flags
+[test_mac_linker_flags]
+	var my_linker_debug_flags = ""
+	var my_linker_debug64_flags = ""
+	var my_linker_release_flags = ""
+	var my_linker_release64_flags = ""   
+	
+################# path to file present in .maya folder #################
+
+include ../.manage/maya/config.maya

@@ -1,0 +1,1834 @@
+#Operating system (win or lin)
+[op_sys]
+	var os = $(__OS__)
+
+#Set env for x86
+[x86]
+	use op_sys
+	use x86.$(os)
+
+#environment for x86 cl compiler
+[x86.Win]
+	env VSx86
+
+#environment for x86 gcc compiler
+[x86.Lin]
+	env Linx86
+	
+#environment for x86 clang compiler
+[x86.Mac]
+	env Mac86    
+	
+#Set env for x64
+[x64]
+	use op_sys
+        use x64.$(os)
+
+#environment for x64 cl compiler
+[x64.Win]
+	env VSx64
+
+#environment for x64 gcc compiler
+[x64.Lin]
+	env Linx64
+
+#environment for x64 clang compiler
+[x64.Mac]
+	env Mac64    
+    
+#Compiler	
+[CC]
+	use op_sys
+	use CC.$(os)
+
+#Win compiler
+[CC.Win]
+	var cc 		= "cl"
+	var linker 	= "link"
+	var	lib	    = "lib"
+    var executer = ""
+	
+#Win compiler
+[CC.Lin]
+	var cc 		= "g++"
+	var linker	= "ar"
+    var executer = "./"
+
+#Mac compiler
+[CC.Mac]
+	var cc 		= "clang"
+	var linker	= "libtool"  
+    var executer = "./"
+    
+#File extensions
+[ext]
+	use ext.$(os)
+        var ext_doxcfg  = ".cfg"
+
+[ext.Win]
+	var ext_exe = ".exe"
+	var ext_lib = ".lib"
+	var ext_dll = ".dll"
+
+[ext.Lin]
+	var ext_exe = ""
+	var ext_lib = ".a"
+	var ext_dll = ".so"
+
+[ext.Mac]
+	var ext_exe = ""
+	var ext_lib = ".a"
+	var ext_dll = ".so"
+
+
+################# Path variables #################
+
+[variables.common]
+	#Doxygen path
+        #final
+	var dox_path		= ".manage/bin/dox"
+
+	#lint path
+        #final
+        var lint_path		= "bin/lint/"
+        #intermediate
+	var gen_lint_path       = "gen/lint/"
+
+	#codecheck path
+        #final
+        var cc_path		= "bin/codecheck/"
+        #intermediate
+	var gen_cc_path     = "gen/codecheck/"
+
+	var dep_win_debug   	  = "bin/win_debug_32"        
+	var dep_win_debug64 	  = "bin/win_debug_64"        
+	var dep_win_release 	  = "bin/win_release_32"      
+	var dep_win_release64 	  = "bin/win_release_64"      
+	var dep_lin_debug   	  = "bin/lin_debug_32"        
+	var dep_lin_debug64 	  = "bin/lin_debug_64"        
+	var dep_lin_release 	  = "bin/lin_release_32"      
+	var dep_lin_release64 	  = "bin/lin_release_64"      
+	var dep_mac_debug   	  = "bin/mac_debug_32"        
+	var dep_mac_debug64 	  = "bin/mac_debug_64"        
+	var dep_mac_release 	  = "bin/mac_release_32"      
+	var dep_mac_release64 	  = "bin/mac_release_64"        	
+	var dep_gen_win_debug     = "gen/win_debug_32"        
+	var dep_gen_win_debug64   = "gen/win_debug_64"        
+	var dep_gen_win_release   = "gen/win_release_32"      
+	var dep_gen_win_release64 = "gen/win_release_64"      
+	var dep_gen_lin_debug     = "gen/lin_debug_32"        
+	var dep_gen_lin_debug64   = "gen/lin_debug_64"        
+	var dep_gen_lin_release   = "gen/lin_release_32"      
+	var dep_gen_lin_release64 = "gen/lin_release_64"      
+	var dep_gen_mac_debug     = "gen/mac_debug_32"        
+	var dep_gen_mac_debug64   = "gen/mac_debug_64"        
+	var dep_gen_mac_release   = "gen/mac_release_32"      
+	var dep_gen_mac_release64 = "gen/mac_release_64"      
+
+[variables]
+
+        use variables.common
+	var win_debug   	=  $(dep_win_debug)         
+	var win_debug64 	=  $(dep_win_debug64)       
+	var win_release 	=  $(dep_win_release)       
+	var win_release64 	=  $(dep_win_release64)     
+	var lin_debug   	=  $(dep_lin_debug)         
+	var lin_debug64 	=  $(dep_lin_debug64)       
+	var lin_release 	=  $(dep_lin_release)       
+	var lin_release64 	=  $(dep_lin_release64)     
+	var mac_debug   	=  $(dep_mac_debug)         
+	var mac_debug64 	=  $(dep_mac_debug64)       
+	var mac_release 	=  $(dep_mac_release)       
+	var mac_release64 	=  $(dep_mac_release64)     
+	var gen_win_debug   	=  $(dep_gen_win_debug)     
+	var gen_win_debug64 	=  $(dep_gen_win_debug64)   
+	var gen_win_release 	=  $(dep_gen_win_release)   
+	var gen_win_release64 	=  $(dep_gen_win_release64) 
+	var gen_lin_debug   	=  $(dep_gen_lin_debug)     
+	var gen_lin_debug64 	=  $(dep_gen_lin_debug64)   
+	var gen_lin_release 	=  $(dep_gen_lin_release)   
+	var gen_lin_release64 	=  $(dep_gen_lin_release64) 
+	var gen_mac_debug   	=  $(dep_gen_mac_debug)     
+	var gen_mac_debug64 	=  $(dep_gen_mac_debug64)   
+	var gen_mac_release 	=  $(dep_gen_mac_release)   
+	var gen_mac_release64 	=  $(dep_gen_mac_release64) 
+
+#output directory for test related binaries 
+[master_test_variables]
+        use variables.common
+        ##Override
+        ## not able to test/$(dep_win_debug)
+        ## it makes the path full rather than being relative
+	var win_debug   	= "test/bin/win_debug_32"          
+	var win_debug64 	= "test/bin/win_debug_64"          
+	var win_release 	= "test/bin/win_release_32"        
+	var win_release64 	= "test/bin/win_release_64"        
+	var lin_debug   	= "test/bin/lin_debug_32"           
+	var lin_debug64 	= "test/bin/lin_debug_64"           
+	var lin_release 	= "test/bin/lin_release_32"         
+	var lin_release64 	= "test/bin/lin_release_64"                                                                        
+	var mac_debug   	= "test/bin/mac_debug_32"           
+	var mac_debug64 	= "test/bin/mac_debug_64"           
+	var mac_release 	= "test/bin/mac_release_32"         
+	var mac_release64 	= "test/bin/mac_release_64"         
+	var gen_win_debug   	= "test/gen/win_debug_32"       
+	var gen_win_debug64 	= "test/gen/win_debug_64"       
+	var gen_win_release 	= "test/gen/win_release_32"     
+	var gen_win_release64 	= "test/gen/win_release_64"                                                    
+	var gen_lin_debug   	= "test/gen/lin_debug_32"       
+	var gen_lin_debug64 	= "test/gen/lin_debug_64"       
+	var gen_lin_release 	= "test/gen/lin_release_32"     
+	var gen_lin_release64 	= "test/gen/lin_release_64"                                                     
+	var gen_mac_debug   	= "test/gen/mac_debug_32"       
+	var gen_mac_debug64 	= "test/gen/mac_debug_64"       
+	var gen_mac_release 	= "test/gen/mac_release_32"     
+	var gen_mac_release64 	= "test/gen/mac_release_64"     
+
+[module_variables]
+    use $(build_or_test)variables
+    
+#This block is introduced to add separate Compiler flags in build and test modes.
+[master_test_Additional_compiler_flags]    
+    var Additional_Lin_flags = ""
+    var Additional_Mac_flags = ""
+    var Additional_Win_flags = ""
+    
+#This block is introduced to add separate Compiler flags in build and test modes.
+#In build mode all the warnings are treated as errors
+[Additional_compiler_flags]    
+    var Additional_Lin_flags = "-Werror" 
+    var Additional_Mac_flags = "-Werror"
+    var Additional_Win_flags = "/WX"
+
+    
+#Flags for windows
+[win_flags]
+    use $(build_or_test)Additional_compiler_flags
+    #Common win flags					
+	var win_com_flags	=	"-DUTF16_BUILD $(Additional_Win_flags)  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC "
+	#Windows debug flags
+	var win_deb_flags	=	"/c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue"
+	#Windows release flags
+	var win_rel_flags	=	"/c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue"
+	#Windows debug64 flags
+	var win_deb64_flags	=	"/c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue"
+	#Windows release64 flags
+	var win_rel64_flags	=	"/c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue"
+	#Windows linker flags
+	var win_link_flags      = 	"/NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib"
+	var win_lib_flags      = 	"/NOLOGO"
+	
+#Flags for Linux
+# -O3 tries to optimize code very heavily for performance. It includes all of the optimizations -O2 includes, plus some more.
+# -Os, on the other hand, instructs GCC to "optimize for size." It enables all -O2 optimizations which do not increase the size of the executable, and then it also toggles some optimization flags to further reduce executable size.
+# if we specify both -Os -O3 the second will overlap the first other
+[lin_flags]
+	use $(build_or_test)Additional_compiler_flags
+	#Wno-invalid-offsetof : We use offsetof on non-POD data (tRegistryEntry, derived from TNode)
+    #Common lin flags					
+	var lin_com_flags	=	"-x c++ $(Additional_Lin_flags) -fvisibility=hidden -fvisibility-inlines-hidden"
+	#Linux debug flags
+	var lin_deb_flags	=	"-DUTF8_BUILD -std=c++11 -c -Wall -DDEBUG -D_DEBUG -g3 -gdwarf-4 -O0 -m32 -fPIC" 
+	#Linux release flags
+	var lin_rel_flags	=	"-DUTF8_BUILD -std=c++11 -c -Wall -O3 -m32 -g3 -gdwarf-4 -fPIC "
+	#Linux debug64 flags
+	var lin_deb64_flags	=	"-DUTF8_BUILD -std=c++11 -c -Wall -DDEBUG -D_DEBUG -g3 -gdwarf-4 -O0 -m64 -fPIC "
+	#Linux release64 flags
+	var lin_rel64_flags	=	"-DUTF8_BUILD -std=c++11 -c -Wall -O3 -m64 -g3 -gdwarf-4 -fPIC "
+	#Linux linker flags
+        #todo to be added for lin dll also
+        var lin_link_flags      =	"-fno-use-linker-plugin -flto -O3"
+	var lin_lib_flags       =	"rcs"
+	
+#Flags for Mac
+[mac_flags]			
+	use $(build_or_test)Additional_compiler_flags
+        #common mac flags
+	var SYSROOT	        = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk"
+	var XCODE_PATH		= "/usr/module_include/" 	
+        var mac_com_flags	=	"-I$(SYSROOT)$(XCODE_PATH) $(Additional_Mac_flags) -isysroot $(SYSROOT) -x objective-c++ -stdlib=libc++ -std=c++11 -c -Wall -pthread  -fvisibility=hidden -fvisibility-inlines-hidden"
+	#Mac debug flags
+	var mac_deb_flags	=	"-arch i386 -O0 -g -DDEBUG -D_DEBUG "
+	#Mac release flags
+	var mac_rel_flags	=	"-arch i386 -O3 "
+	#Mac debug64 flags
+	var mac_deb64_flags	=	"-arch x86_64 -DDEBUG -D_DEBUG -g -O0 "
+	#Mac release64 flags
+	var mac_rel64_flags	=	"-arch x86_64 -O3 "
+	#Mac linker flags
+	var mac_link_flags      =	"-lc -lm -lstdc++.6 -lc++"
+        #todo add below above so that inline at the link time may happen
+        #mac_link_flags needs to be used for both exe and dll
+	#var mac_link_flags     =	"-flto -O3"
+    
+[var.common]
+	use basefolder
+	use ext
+	use CC
+	use module_variables
+	use module_target
+
+#Combination of variable blocks for windows
+[var.Win]
+	use var.common
+	use win_flags
+
+#Combination of variable blocks for linux
+[var.Lin]
+	use var.common
+	use lin_flags
+
+#Combination of variable blocks for Mac
+[var.Mac]
+	use var.common
+	use mac_flags    
+
+#Block to generate the dox folder structure
+[makedir.dox]
+	use module_variables	
+	exec mkdir -p $(path)$(dox_path)
+
+#Block to generate the lint folder structure
+[makedir.cc]
+	use module_variables	
+	exec mkdir -p $(cc_path)
+	exec mkdir -p $(gen_cc_path)
+	
+#Block to generate the lint folder structure
+[makedir.lint]
+	use module_variables	
+	exec mkdir -p $(lint_path)
+	exec mkdir -p $(gen_lint_path)
+
+#Block to generate the codecheck folder structure
+[makedir.codecheck]
+	use module_variables	
+	exec mkdir -p $(cc_path)
+	exec mkdir -p $(gen_cc_path) 
+   
+#Block to generate the folder structure for linux
+[makedir.Lin]
+	use module_variables	
+	exec mkdir -p $(lin_debug)
+	exec mkdir -p $(lin_release)
+        exec mkdir -p $(lin_debug64)
+	exec mkdir -p $(lin_release64)
+        exec mkdir -p $(gen_lin_debug)
+	exec mkdir -p $(gen_lin_release)
+        exec mkdir -p $(gen_lin_debug64)
+	exec mkdir -p $(gen_lin_release64)
+
+#Block to generate the folder structure for Windows
+[makedir.Win]
+	use module_variables
+	exec mkdir -p $(win_debug)
+	exec mkdir -p $(win_release)
+	exec mkdir -p $(win_debug64)
+	exec mkdir -p $(win_release64)
+	exec mkdir -p $(gen_win_debug)
+	exec mkdir -p $(gen_win_release)
+	exec mkdir -p $(gen_win_debug64)
+	exec mkdir -p $(gen_win_release64)
+	
+#Block to generate the folder structure for Mac
+[makedir.Mac]
+	use module_variables
+	exec mkdir -p $(mac_debug)
+	exec mkdir -p $(mac_release)
+	exec mkdir -p $(mac_debug64)
+	exec mkdir -p $(mac_release64)	
+	exec mkdir -p $(gen_mac_debug)
+	exec mkdir -p $(gen_mac_release)
+	exec mkdir -p $(gen_mac_debug64)
+	exec mkdir -p $(gen_mac_release64)	
+
+################################################################################## Common Targets ################################################################################    
+
+#Block to generated debug build (x86)
+[debug]
+    use ChooseBuildMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@debug]
+	do makedir.$(os)
+	do debug.$(os).$(type)
+
+#Block to generated debug build (x64)
+[debug64]
+    use ChooseBuildMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@debug64]
+	do makedir.$(os)
+	do debug64.$(os).$(type)
+	
+#Block to generated release build (x86)
+[release]
+    use ChooseBuildMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@release]
+	do makedir.$(os)
+	do release.$(os).$(type)
+
+#Block to generated release build (x64)
+[release64]
+    use ChooseBuildMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@release64]
+	do makedir.$(os)
+	do release64.$(os).$(type)
+	
+################################################################################## WINDOWS ################################################################################
+
+#Block to generated debug build for windows
+
+#Generate Debug exe
+[debug.Win.Exe]
+	use var.$(os)
+	var out = $(win_debug)
+	var ext = $(ext_exe)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug_link.Win.Exe
+	use post_build_win
+	
+[debug_link.Win.Exe]
+	use x86
+    use module_win_linker_flags
+	do debug_cpp.Win	
+	use module_include
+	--->[$(gen_win_debug)/%_%%%.obj]
+	--->[$(win_debug)/$(name)$(ext_exe)]	
+	exec $(linker) $(libsobjs) $$(INPUT) /out:$$(OUTPUT) $(win_link_flags) $(my_linker_debug_flags) /PDB:$(win_debug)/$(name).pdb
+
+#Generate Debug dll
+[debug.Win.DLL]
+	use var.$(os)
+	var out = $(win_debug)
+	var ext = $(ext_dll)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug_link.Win.DLL
+	use post_build_win
+
+[debug_link.Win.DLL]
+	use x86
+    use module_win_linker_flags
+	do debug_cpp.Win
+	use module_include
+	--->[$(gen_win_debug)/%_%%%.obj]
+	--->[$(win_debug)/$(name)$(ext_dll)]
+	exec $(linker) $(libsobjs) $$(INPUT) /DLL /out:$$(OUTPUT) $(win_link_flags) $(my_linker_debug_flags) /PDB:$(win_debug)/$(name).pdb
+
+#Generate Debug lib
+[debug.Win.Lib]
+	use var.$(os)
+	var out = $(win_debug)
+	var ext = $(ext_lib)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug_lib.Win.Lib
+	use post_build_win
+	
+[debug_lib.Win.Lib]
+	use x86
+	do debug_cpp.Win
+	use module_include
+	--->[$(gen_win_debug)/%_%%%.obj]
+	--->[$(win_debug)/$(name)$(ext_lib)]
+	exec $(lib) $(win_lib_flags) $(libsobjs) $$(INPUT) /out:$$(OUTPUT)
+	
+	
+#Generated Debug64 exe
+[debug64.Win.Exe]
+	use var.$(os)
+	var out = $(win_debug64)
+	var ext = $(ext_exe)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug64_link.Win.Exe
+	use post_build_win
+	
+[debug64_link.Win.Exe]
+	use x64
+    use module_win_linker_flags
+	do debug_cpp64.Win
+	use module_include
+	--->[$(gen_win_debug64)/%_%%%.obj]
+	--->[$(win_debug64)/$(name)$(ext_exe)]
+	exec $(linker) $(libsobjs) $$(INPUT) /out:$$(OUTPUT) $(win_link_flags) $(my_linker_debug64_flags) /PDB:$(win_debug64)/$(name).pdb
+
+#Generate Debug64 dll
+[debug64.Win.Dll]
+	use var.$(os)
+	var out = $(win_debug64)
+	var ext = $(ext_dll)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug64_link.Win.Dll
+	use post_build_win
+	
+[debug64_link.Win.Dll]
+	use x64
+    use module_win_linker_flags
+	do debug_cpp64.Win
+	use module_include
+	--->[$(gen_win_debug64)/%_%%%.obj]
+	--->[$(win_debug64)/$(name)$(ext_dll)]
+	exec $(linker) $(libsobjs) $$(INPUT) /DLL /out:$$(OUTPUT) $(win_link_flags) $(my_linker_debug64_flags) /PDB:$(win_debug64)/$(name).pdb
+
+#Generate debug64 lib
+[debug64.Win.Lib]
+	use var.$(os)
+	var out = $(win_debug64)
+	var ext = $(ext_lib)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_debug64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do debug64_lib.Win.Lib
+	use post_build_win
+	
+[debug64_lib.Win.Lib]
+	use x64
+	do debug_cpp64.Win
+	use module_include
+	--->[$(gen_win_debug64)/%_%%%.obj]
+	--->[$(win_debug64)/$(name)$(ext_lib)]
+	exec $(lib) $(win_lib_flags) $(libsobjs) $$(INPUT) /out:$$(OUTPUT)
+
+#Convert cpp to obj (debug)
+[debug_cpp.Win]
+	apply [module_dep_includes]--->[/I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp_cl.Win
+	
+[debug_cpp_cl.Win]
+	use var.$(os)
+	use module_include
+    use module_win_compiler_flags
+	--->[$(gen_win_debug)/%_%%%.obj]
+	exec $(cc) $(win_deb_flags) $(my_compiler_debug_flags) $(win_com_flags) $(Headers) /Fo$$(OUTPUT) /Tp$$(INPUT)
+
+	
+#Convert cpp to obj (debug64)
+[debug_cpp64.Win]
+	apply [module_dep_includes]--->[/I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp64_cl.Win
+	
+[debug_cpp64_cl.Win]
+	use var.$(os)
+	use module_include
+    use module_win_compiler_flags
+	--->[$(gen_win_debug64)/%_%%%.obj]
+	exec $(cc) $(win_deb64_flags) $(my_compiler_debug64_flags) $(win_com_flags) $(Headers) /Fo$$(OUTPUT) /Tp$$(INPUT)
+		
+#Block to generated release build for windows
+
+#Generate Release exe
+[release.Win.Exe]
+	use var.$(os)
+	var out = $(win_release)
+	var ext = $(ext_exe)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_link.Win.Exe
+	use post_build_win
+	
+[release_link.Win.Exe]
+	use x86
+	do release_cpp.Win
+	use module_include
+    use module_win_linker_flags
+	--->[$(gen_win_release)/%_%%%.obj]
+	--->[$(win_release)/$(name)$(ext_exe)]
+	exec $(linker) $(libsobjs) $$(INPUT) /out:$$(OUTPUT) $(win_link_flags) $(my_linker_release_flags) /PDB:$(win_release)/$(name).pdb
+
+#Generate Release dll
+[release.Win.DLL]
+	use var.$(os)
+	var out = $(win_release)
+	var ext = $(ext_dll)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_link.Win.DLL
+	use post_build_win
+
+[release_link.Win.DLL]
+	use x86
+	do release_cpp.Win
+	use module_include
+    use module_win_linker_flags
+	--->[$(gen_win_release)/%_%%%.obj]
+	--->[$(win_release)/$(name)$(ext_dll)]
+	exec $(linker) $(libsobjs) $$(INPUT) /DLL /out:$$(OUTPUT) $(win_link_flags) $(my_linker_release_flags) /PDB:$(win_release)/$(name).pdb
+
+#Generate Release lib
+[release.Win.Lib]
+	use var.$(os)
+	var out = $(win_release)
+	var ext = $(ext_lib)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_lib.Win.Lib
+	use post_build_win
+	
+[release_lib.Win.Lib]
+	use x86
+	do release_cpp.Win
+	use module_include
+        --->[$(gen_win_release)/%_%%%.obj]
+	--->[$(win_release)/$(name)$(ext_lib)]
+	exec $(lib) $(win_lib_flags) $(libsobjs) $$(INPUT) /out:$$(OUTPUT)
+
+#Generate Release64 exe
+[release64.Win.Exe]
+	use var.$(os)
+	var out = $(win_release64)
+	var ext = $(ext_exe)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_link64.Win.Exe
+	use post_build_win
+	
+[release_link64.Win.Exe]
+	use x64
+	do release_cpp64.Win
+	use module_include
+    use module_win_linker_flags
+	--->[$(gen_win_release64)/%_%%%.obj]
+	--->[$(win_release64)/$(name)$(ext_exe)]
+	exec $(linker) $(libsobjs) $$(INPUT) /out:$$(OUTPUT) $(win_link_flags) $(my_linker_release64_flags) /PDB:$(win_release64)/$(name).pdb	
+	
+#Generate Release64 dll
+[release64.Win.Dll]
+	use var.$(os)
+	var out = $(win_release64)
+	var ext = $(ext_dll)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_link64.Win.Dll
+	use post_build_win
+	
+[release_link64.Win.Dll]
+	use x64
+	do release_cpp64.Win
+	use module_include
+    use module_win_linker_flags
+	--->[$(gen_win_release64)/%_%%%.obj]
+	--->[$(win_release64)/$(name)$(ext_dll)]
+	exec $(linker) $(libsobjs) $$(INPUT) /DLL /out:$$(OUTPUT) $(win_link_flags) $(my_linker_release64_flags) /PDB:$(win_release64)/$(name).pdb
+	
+#Generate Release64 lib
+[release64.Win.Lib]
+	use var.$(os)
+	var out = $(win_release64)
+	var ext = $(ext_lib)
+	use pre_build_win
+	apply [module_dep_libs]--->[$(path)%%/$(dep_win_release64)/%%%.lib]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.obj]
+	var libsobjs = $$(INPUT)
+	do release_lib64.Win.Lib
+	use post_build_win
+	
+[release_lib64.Win.Lib]
+	use x64
+	do release_cpp64.Win
+	use module_include
+        --->[$(gen_win_release64)/%_%%%.obj]
+	--->[$(win_release64)/$(name)$(ext_lib)]
+	exec $(lib) $(win_lib_flags) $(libsobjs) $$(INPUT) /out:$$(OUTPUT)
+
+#Convert cpp to obj (Release)
+[release_cpp.Win]
+	apply [module_dep_includes]--->[/I%%]
+	var Headers = $$(INPUT)
+	do release_cpp_cl.Win
+	
+[release_cpp_cl.Win]	
+    use var.$(os)
+	use module_include
+    use module_win_compiler_flags
+	--->[$(gen_win_release)/%_%%%.obj]
+	exec $(cc) $(win_rel_flags) $(my_compiler_release_flags) $(win_com_flags) $(Headers) /Fo$$(OUTPUT) /Tp$$(INPUT)
+	
+#Convert cpp to obj (Release64)
+[release_cpp64.Win]
+	apply [module_dep_includes]--->[/I%%]
+	var Headers = $$(INPUT)
+	do release_cpp64_cl.Win
+	
+[release_cpp64_cl.Win]	
+    use var.$(os)
+	use module_include
+    use module_win_compiler_flags
+	--->[$(gen_win_release64)/%_%%%.obj]
+	exec $(cc) $(win_rel64_flags) $(my_compiler_release64_flags) $(win_com_flags) $(Headers) /Fo$$(OUTPUT) /Tp$$(INPUT)	
+
+################################################################################### END #####################################################################################
+	
+################################################################################## MAC ################################################################################
+
+#Block to generated debug build for Mac
+
+#Generate Debug exe
+[debug.Mac.Exe]
+	use var.$(os)
+	var out = $(mac_debug)
+	var ext = $(ext_exe)
+	use pre_build_mac
+	apply [module_dep_libs]--->[-Wl,-force_load,$(path)%%/$(dep_mac_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link.Mac.Exe
+	use post_build_mac
+	
+[debug_link.Mac.Exe]
+	use x86
+	do debug_cpp.Mac
+    use module_mac_linker_flags
+	use module_include
+        --->[$(gen_mac_debug)/%_%%%.o]
+        --->[$(mac_debug)/$(name)$(ext_exe)]
+	#exec $(cc) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -lc -lstdc++ -lgcc_s -m32 $(my_linker_debug_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+	exec $(cc) -arch i386 $(libsobjs) $$(INPUT) -o $$(OUTPUT) $(mac_link_flags) $(my_linker_debug_flags)
+
+#Generate Debug lib
+[debug.Mac.Lib]
+	use var.$(os)
+	var out = $(mac_debug)
+	var ext = $(ext_lib)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_lib.Mac.Lib
+	use post_build_mac
+	
+[debug_lib.Mac.Lib]
+	use x86
+	do debug_cpp.Mac
+	use module_include
+	--->[$(gen_mac_debug)/%_%%%.o]
+	--->[$(mac_debug)/$(name)$(ext_lib)]
+    #exec $(cc) -arch i386 $(mac_link_flags) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+    exec $(linker) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+    
+    
+ #Generate Debug64 exe
+ [debug64.Mac.Exe]
+	use var.$(os)
+	var out = $(mac_debug64)
+	var ext = $(ext_exe)
+	use pre_build_mac
+	apply [module_dep_libs]--->[-Wl,-force_load,$(path)%%/$(dep_mac_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link64.Mac.Exe
+	use post_build_mac
+	
+[debug_link64.Mac.Exe]
+	use x64
+    do debug_cpp64.Mac
+    use module_include
+    use module_mac_linker_flags
+    --->[$(gen_mac_debug64)/%_%%%.o]
+    --->[$(mac_debug64)/$(name)$(ext_exe)]
+    #exec $(cc) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -lc -lstdc++ -lgcc_s -m64 $(my_linker_debug64_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+    exec $(cc) -arch x86_64 $(libsobjs) $$(INPUT) -o $$(OUTPUT) $(mac_link_flags) $(my_linker_debug_flags)
+
+#Generate Debug64 lib
+[debug64.Mac.Lib]
+	use var.$(os)
+	var out = $(mac_debug64)
+	var ext = $(ext_lib)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_lib64.Mac.Lib
+	use post_build_mac
+	
+[debug_lib64.Mac.Lib]
+	use x64
+	do debug_cpp64.Mac
+	use module_include
+	--->[$(gen_mac_debug64)/%_%%%.o]
+	--->[$(mac_debug64)/$(name)$(ext_lib)]
+	exec $(linker) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+	
+#Generate Debug so
+[debug.Mac.DLL]
+	use var.$(os)
+	var out = $(mac_debug)
+	var ext = $(ext_dll)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link.Mac.DLL
+	use post_build_mac
+	
+[debug_link.Mac.DLL]
+	use x86
+	do debug_cpp.Mac
+	use module_include
+        use module_mac_linker_flags
+        --->[$(gen_mac_debug)/%_%%%.o]
+        --->[$(mac_debug)/$(name)$(ext_dll)]
+	exec clang -arch i386 -bundle -std=gnu99 $(my_linker_debug_flags) $(mac_link_flags) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+#Generate Debug64 so
+[debug64.Mac.DLL]
+	use var.$(os)
+	var out = $(mac_debug64)
+	var ext = $(ext_dll)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link64.Mac.DLL
+	use post_build_mac
+	
+[debug_link64.Mac.DLL]
+	use x64
+	do debug_cpp64.Mac
+	use module_include
+        use module_mac_linker_flags
+        --->[$(gen_mac_debug64)/%_%%%.o]
+        --->[$(mac_debug64)/$(name)$(ext_dll)]
+	exec clang -arch x86_64 -bundle -std=gnu99 $(my_linker_debug64_flags) $(mac_link_flags) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+#Convert cpp to obj (Debug)
+[debug_cpp.Mac]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp_cl.Mac
+	
+[debug_cpp_cl.Mac]
+	use var.$(os)
+	use module_include
+    use module_mac_compiler_flags
+	--->[$(gen_mac_debug)/%_%%%.o]
+	exec $(cc) $(mac_deb_flags) $(my_compiler_debug_flags) $(mac_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	
+#Convert cpp to obj (Debug64)
+[debug_cpp64.Mac]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp64_cl.Mac
+	
+[debug_cpp64_cl.Mac]
+	use var.$(os)
+	use module_include
+    use module_mac_compiler_flags
+	--->[$(gen_mac_debug64)/%_%%%.o]
+	exec $(cc) $(mac_deb64_flags) $(my_compiler_debug64_flags) $(mac_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+    
+#Block to generated release build for Mac
+
+#Generate Release exe
+[release.Mac.Exe]
+	use var.$(os)
+	var out = $(mac_release)
+	var ext = $(ext_exe)
+	use pre_build_mac
+	apply [module_dep_libs]--->[-Wl,-force_load,$(path)%%/$(dep_mac_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link.Mac.Exe
+	use post_build_mac
+	
+[release_link.Mac.Exe]
+	use x86
+	use var.$(os)
+	do release_cpp.Mac
+    use module_mac_linker_flags
+	use module_include
+        --->[$(gen_mac_release)/%_%%%.o]
+	--->[$(mac_release)/$(name)$(ext_exe)]
+	exec $(cc) -arch i386 $(libsobjs) $$(INPUT) -o $$(OUTPUT) $(mac_link_flags) $(my_linker_release_flags)
+	
+#Generate Release so
+[release.Mac.Dll]
+	use var.$(os)
+	var out = $(mac_release)
+	var ext = $(ext_dll)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link.Mac.Dll
+	use post_build_mac
+	
+[release_link.Mac.Dll]
+	use x86
+	use var.$(os)
+	do release_cpp.Mac
+	use module_include
+        use module_mac_linker_flags
+        --->[$(gen_mac_release)/%_%%%.o]
+	--->[$(mac_release)/$(name)$(ext_dll)]
+        exec clang -arch i386 -bundle -std=gnu99 $(my_linker_release_flags) $(mac_link_flags) -o $$(OUTPUT) $(libsobjs) $$(INPUT)	
+
+#Generate Release lib
+[release.Mac.Lib]
+	use var.$(os)
+	var out = $(mac_release)
+	var ext = $(ext_lib)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_lib.Mac.Lib
+	use post_build_mac
+
+	
+[release_lib.Mac.Lib]
+	use x86
+	use var.$(os)
+	do release_cpp.Mac
+	use module_include
+	--->[$(gen_mac_release)/%_%%%.o]
+	--->[$(mac_release)/$(name)$(ext_lib)]
+	exec $(linker) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+
+#Generate Release64 exe
+[release64.Mac.Exe]
+	use var.$(os)
+	var out = $(mac_release64)
+	var ext = $(ext_exe)
+	use pre_build_mac
+	apply [module_dep_libs]--->[-Wl,-force_load,$(path)%%/$(dep_mac_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link64.Mac.Exe
+	use post_build_mac
+	
+[release_link64.Mac.Exe]
+	use x64
+	use var.$(os)
+	do release_cpp64.Mac
+	use module_include
+        use module_mac_linker_flags
+        --->[$(gen_mac_release64)/%_%%%.o]
+	--->[$(mac_release64)/$(name)$(ext_exe)]
+	exec $(cc) -arch x86_64 $(libsobjs) $$(INPUT) -o $$(OUTPUT) $(mac_link_flags) $(my_linker_release64_flags)
+
+#Generate Release64 so
+[release64.Mac.Dll]
+	use var.$(os)
+	var out = $(mac_release64)
+	var ext = $(ext_dll)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link64.Mac.Dll
+	use post_build_mac
+	
+[release_link64.Mac.Dll]
+	use x64
+	use var.$(os)
+	do release_cpp64.Mac
+	use module_include
+        use module_mac_linker_flags
+        --->[$(gen_mac_release64)/%_%%%.o]
+	--->[$(mac_release64)/$(name)$(ext_dll)]	
+        exec clang -arch x86_64 -bundle -std=gnu99 $(my_linker_release64_flags) $(mac_link_flags) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+#Generate Release64 lib
+[release64.Mac.Lib]
+	use var.$(os)
+	var out = $(mac_release64)
+	var ext = $(ext_lib)
+	use pre_build_mac
+	apply [module_dep_libs]--->[$(path)%%/$(dep_mac_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_mac_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_lib64.Mac.Lib
+	use post_build_mac
+	
+[release_lib64.Mac.Lib]
+	use x64
+	use var.$(os)
+	do release_cpp64.Mac
+	use module_include
+        --->[$(gen_mac_release64)/%_%%%.o]
+	--->[$(mac_release64)/$(name)$(ext_lib)]
+	exec $(linker) -o $$(OUTPUT) $(libsobjs) $$(INPUT)
+     
+#Convert cpp to obj (Release)
+[release_cpp.Mac]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do release_cpp_cl.Mac
+
+[release_cpp_cl.Mac]
+	use var.$(os)
+	use module_include
+    use module_mac_compiler_flags
+	--->[$(gen_mac_release)/%_%%%.o]
+	exec $(cc) $(mac_rel_flags) $(my_compiler_release_flags) $(mac_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	 
+#Convert cpp to obj (Release64)
+[release_cpp64.Mac]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do release_cpp64_cl.Mac
+	
+[release_cpp64_cl.Mac]
+	use var.$(os)
+	use module_include
+    use module_mac_compiler_flags
+	--->[$(gen_mac_release64)/%_%%%.o]
+	exec $(cc) $(mac_rel64_flags) $(my_compiler_release64_flags) $(mac_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+
+################################################################################### END #####################################################################################
+
+################################################################################### LINUX #####################################################################################
+
+#Block to generated debug build for Linux
+
+# Block to separate the debug info from binary on linux
+[split_debug_info]
+	#exec objcopy --only-keep-debug $(out)/$(name)$(ext) $(out)/$(name).debug
+	#exec objcopy --strip-debug $(out)/$(name)$(ext)
+	#exec objcopy --add-gnu-debuglink   $(out)/$(name).debug $(out)/$(name)$(ext)
+	#Debug info file is not executable
+	#exec chmod -x $(out)/$(name).debug
+
+#Generate Debug exe
+[debug.Lin.Exe]
+	use var.$(os)
+	var out = $(lin_debug)
+	var ext = $(ext_exe)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link.Lin.Exe
+	use split_debug_info
+	use post_build_lin
+	
+[debug_link.Lin.Exe]
+	use x86
+	do debug_cpp.Lin
+	use module_include
+    	use module_lin_linker_flags
+        --->[$(gen_lin_debug)/%_%%%.o]
+        --->[$(lin_debug)/$(name)$(ext_exe)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group -Wl,--whole-archive $(libsobjs) -Wl,--no-whole-archive $$(INPUT) -Wl,--end-group -lc -lstdc++ -lgcc_s -m32 $(my_linker_debug_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+
+#Generate Debug so
+[debug.Lin.DLL]
+	use var.$(os)
+	var out = $(lin_debug)
+	var ext = $(ext_dll)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link.Lin.DLL
+	use split_debug_info
+	use post_build_lin
+	
+[debug_link.Lin.DLL]
+	use x86
+	do debug_cpp.Lin
+	use module_include
+    use module_lin_linker_flags
+        --->[$(gen_lin_debug)/%_%%%.o]
+        --->[$(lin_debug)/$(name)$(ext_dll)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -lc -lstdc++ -shared -lgcc_s -m32 $(my_linker_debug_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+
+#Generate Debug lib
+[debug.Lin.Lib]
+	use var.$(os)
+	var out = $(lin_debug)
+	var ext = $(ext_lib)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_lib.Lin.Lib
+	use post_build_lin
+	
+[debug_lib.Lin.Lib]
+	use x86
+	do debug_cpp.Lin
+	use module_include
+	--->[$(gen_lin_debug)/%_%%%.o]
+	--->[$(lin_debug)/$(name)$(ext_lib)]
+    	exec $(linker) $(lin_lib_flags) $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+	
+#Generate debug64 exe
+[debug64.Lin.Exe]
+	use var.$(os)
+	var out = $(lin_debug64)
+	var ext = $(ext_exe)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link64.Lin.Exe
+	use split_debug_info
+	use post_build_lin
+	
+[debug_link64.Lin.Exe]
+	use x64
+    do debug_cpp64.Lin
+    use module_include
+    use module_lin_linker_flags
+    --->[$(gen_lin_debug64)/%_%%%.o]
+    --->[$(lin_debug64)/$(name)$(ext_exe)]
+    exec $(cc) $(lin_link_flags) -Wl,--start-group -Wl,--whole-archive $(libsobjs) -Wl,--no-whole-archive $$(INPUT) -Wl,--end-group -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -lc -lstdc++ -lgcc_s -m64 $(my_linker_debug64_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+
+#Generate Debug64 so
+[debug64.Lin.Dll]
+	use var.$(os)
+	var out = $(lin_debug64)
+	var ext = $(ext_dll)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_link64.Lin.DLL
+	use split_debug_info
+	use post_build_lin
+	
+[debug_link64.Lin.DLL]
+	use x64
+    do debug_cpp64.Lin
+    use module_include
+    use module_lin_linker_flags
+    --->[$(gen_lin_debug64)/%_%%%.o]
+    --->[$(lin_debug64)/$(name)$(ext_dll)]
+    exec $(cc) $(lin_link_flags) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -lc -lstdc++ -lgcc_s -m64 $(my_linker_debug64_flags) -o $$(OUTPUT) -shared -lpthread -ldl -lrt
+
+#Generate Debug64 lib
+[debug64.Lin.Lib]
+	use var.$(os)
+	var out = $(lin_debug64)
+	var ext = $(ext_lib)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_debug64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_debug64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do debug_lib64.Lin.Lib
+	use post_build_lin
+	
+[debug_lib64.Lin.Lib]
+	use x64
+	do debug_cpp64.Lin
+	use module_include
+	--->[$(gen_lin_debug64)/%_%%%.o]
+	--->[$(lin_debug64)/$(name)$(ext_lib)]
+	exec $(linker) $(lin_lib_flags) $$(OUTPUT) $(libsobjs) $$(INPUT)
+	
+	
+#Convert cpp to obj (Debug)
+[debug_cpp.Lin]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp_cl.Lin
+	
+[debug_cpp_cl.Lin]
+	use var.$(os)
+	use module_include
+    	use module_lin_compiler_flags
+	--->[$(gen_lin_debug)/%_%%%.o]
+	exec $(cc) $(lin_deb_flags)  $(my_compiler_debug_flags) $(lin_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	
+#Convert cpp to obj (Debug64)
+[debug_cpp64.Lin]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do debug_cpp64_cl.Lin
+	
+[debug_cpp64_cl.Lin]
+	use var.$(os)
+	use module_include
+    	use module_lin_compiler_flags
+	--->[$(gen_lin_debug64)/%_%%%.o]
+	exec $(cc) $(lin_deb64_flags) $(my_compiler_debug64_flags) $(lin_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	
+#Block to generated release build for Linux
+
+#Generate Release exe
+[release.Lin.Exe]
+	use var.$(os)
+	var out = $(lin_release)
+	var ext = $(ext_exe)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link.Lin.Exe
+	use split_debug_info
+	use post_build_lin	
+	
+[release_link.Lin.Exe]
+	use x86
+	use var.$(os)
+	do release_cpp.Lin
+    	use module_lin_linker_flags
+	use module_include
+        --->[$(gen_lin_release)/%_%%%.o]
+	--->[$(lin_release)/$(name)$(ext_exe)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group -Wl,--whole-archive $(libsobjs) -Wl,--no-whole-archive $$(INPUT) -Wl,--end-group -lc -lstdc++ -lgcc_s -m32 $(my_linker_release_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+	
+#Generate Release so
+[release.Lin.Dll]
+	use var.$(os)
+	var out = $(lin_release)
+	var ext = $(ext_dll)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link.Lin.Dll
+	use split_debug_info
+	use post_build_lin
+	
+[release_link.Lin.Dll]
+	use x86
+	use var.$(os)
+	do release_cpp.Lin
+	use module_include
+   	use module_lin_linker_flags
+        --->[$(gen_lin_release)/%_%%%.o]
+	--->[$(lin_release)/$(name)$(ext_dll)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -lc -lstdc++ -lgcc_s -m32 $(my_linker_release_flags) -o $$(OUTPUT) -shared -lpthread -ldl -lrt
+
+#Generate Release lib
+[release.Lin.Lib]
+	use var.$(os)
+	var out = $(lin_release)
+	var ext = $(ext_lib)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_lib.Lin.Lib
+	use post_build_lin
+	
+[release_lib.Lin.Lib]
+	use x86
+	use var.$(os)
+	do release_cpp.Lin
+	use module_include
+	--->[$(gen_lin_release)/%_%%%.o]
+	--->[$(lin_release)/$(name)$(ext_lib)]
+	exec $(linker) $(lin_lib_flags) $$(OUTPUT) $(libsobjs) $$(INPUT)
+
+#Generate Release64 exe
+[release64.Lin.Exe]
+	use var.$(os)
+	var out = $(lin_release64)
+	var ext = $(ext_exe)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link64.Lin.Exe
+	use split_debug_info
+	use post_build_lin
+	
+[release_link64.Lin.Exe]
+	use x64
+	use var.$(os)
+	do release_cpp64.Lin
+    	use module_lin_linker_flags
+	use module_include
+        --->[$(gen_lin_release64)/%_%%%.o]
+	--->[$(lin_release64)/$(name)$(ext_exe)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group -Wl,--whole-archive $(libsobjs) -Wl,--no-whole-archive $$(INPUT) -Wl,--end-group -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -lc -lstdc++ -lgcc_s -m64 $(my_linker_release64_flags) -o $$(OUTPUT) -lpthread -ldl -lrt
+
+#Generate Release64 so
+[release64.Lin.Dll]
+	use var.$(os)
+	var out = $(lin_release64)
+	var ext = $(ext_dll)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_link64.Lin.Dll
+	use split_debug_info
+	use post_build_lin
+	
+[release_link64.Lin.Dll]
+	use x64
+	use var.$(os)
+	do release_cpp64.Lin
+   	use module_lin_linker_flags
+	use module_include
+        --->[$(gen_lin_release64)/%_%%%.o]
+	--->[$(lin_release64)/$(name)$(ext_dll)]
+	exec $(cc) $(lin_link_flags) -Wl,--start-group $(libsobjs) $$(INPUT) -Wl,--end-group -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -lc -lstdc++ -lgcc_s -m64 $(my_linker_release64_flags) -o $$(OUTPUT) -shared -lpthread -ldl -lrt
+
+#Generate Release64 lib
+[release64.Lin.Lib]
+	use var.$(os)
+	var out = $(lin_release64)
+	var ext = $(ext_lib)
+	use pre_build_lin
+	apply [module_dep_libs]--->[$(path)%%/$(dep_lin_release64)/%%%.a]
+	apply [module_dep_objs]--->[$(path)%%/$(dep_gen_win_release64)/%%%.o]
+	var libsobjs = $$(INPUT)
+	do release_lib64.Lin.Lib
+	use post_build_lin
+	
+[release_lib64.Lin.Lib]
+	use x64
+	use var.$(os)
+	do release_cpp64.Lin
+	use module_include
+        --->[$(gen_lin_release64)/%_%%%.o]
+	--->[$(lin_release64)/$(name)$(ext_lib)]
+	exec $(linker) $(lin_lib_flags) $$(OUTPUT) $(libsobjs) $$(INPUT)
+	
+#Convert cpp to obj (Release)
+[release_cpp.Lin]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do release_cpp_cl.Lin
+
+[release_cpp_cl.Lin]
+	use var.$(os)
+	use module_include
+    	use module_lin_compiler_flags
+	--->[$(gen_lin_release)/%_%%%.o]
+	 exec $(cc) $(lin_rel_flags) $(my_compiler_release_flags) $(lin_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	
+#Convert cpp to obj (Release64)
+[release_cpp64.Lin]
+	apply [module_dep_includes]--->[-I%%]
+	var Headers = $$(INPUT)
+	do release_cpp64_cl.Lin
+	
+[release_cpp64_cl.Lin]
+	use var.$(os)
+	use module_include
+        use module_lin_compiler_flags
+	--->[$(gen_lin_release64)/%_%%%.o]
+	exec $(cc) $(lin_rel64_flags) $(my_compiler_release64_flags) $(lin_com_flags) $(Headers) -o $$(OUTPUT) $$(INPUT) & echo %.%%%
+	
+	
+################################################################################### END #####################################################################################
+
+################################################################################### OTHER TARGETS #####################################################################################
+     
+[debugrelease]
+	do debug
+	do release
+	
+[debug64release64]
+	do debug64
+	do release64
+	
+[debugdebug64]
+
+	do debug
+	do debug64
+	
+[releaserelease64]
+	do release
+	do release64
+
+[all]
+	do debug
+	do release
+	do debug64
+	do release64
+
+################################################################################### END #####################################################################################
+
+################################################################################ CLEAN TARGETS #####################################################################################
+#remove all test dep libs and dep libs
+[fullclean_dependencies]
+        use dep_libs
+        use test_dep_libs
+    
+#Cleans self debug and release folders as well as dependence's folders(both 64 and 32)
+[fullclean]
+        use fullclean_dependencies
+        do allclean
+        use basefolder
+        use [fullclean_dependencies]--->[do $(path)%%/config.maya@fullclean]
+
+#Cleans self debug and release folders (both 64 and 32)
+[doxclean]
+        use basefolder
+	exec rm -rf $(path).manage/bin/dox/*
+
+[allclean]
+	do clean.$(__OS__)
+
+[clean.Win.Bin]
+    use variables	
+    exec rm -rf $(win_debug)/*
+    exec rm -rf $(win_release)/*
+    exec rm -rf $(win_debug64)/*
+    exec rm -rf $(win_release64)/*
+    exec rm -rf $(gen_win_debug)/*
+    exec rm -rf $(gen_win_release)/*
+    exec rm -rf $(gen_win_debug64)/*
+    exec rm -rf $(gen_win_release64)/*
+
+[clean.Win.Test.Bin]    
+    use master_test_variables	
+    exec rm -rf $(win_debug)/*
+    exec rm -rf $(win_release)/*
+    exec rm -rf $(win_debug64)/*
+    exec rm -rf $(win_release64)/*
+    exec rm -rf $(gen_win_debug)/*
+    exec rm -rf $(gen_win_release)/*
+    exec rm -rf $(gen_win_debug64)/*
+    exec rm -rf $(gen_win_release64)/*
+
+[clean.Win]
+    do clean.Win.Bin
+    do clean.Win.Test.Bin
+    use variables.common
+    exec rm -rf $(lint_path)/*
+    exec rm -rf $(cc_path)/*        
+    exec rm -rf $(gen_lint_path)/*      
+    exec rm -rf $(gen_cc_path)/*       
+
+[clean.Lin.Bin]
+    use variables	
+    exec sh -c "rm -rf $(lin_debug)/*"
+    exec sh -c "rm -rf $(lin_release)/*"
+    exec sh -c "rm -rf $(lin_debug64)/*"
+    exec sh -c "rm -rf $(lin_release64)/*"
+    exec sh -c "rm -rf $(gen_lin_debug)/*"
+    exec sh -c "rm -rf $(gen_lin_release)/*"
+    exec sh -c "rm -rf $(gen_lin_debug64)/*"
+    exec sh -c "rm -rf $(gen_lin_release64)/*"
+
+[clean.Lin.Test.Bin]    
+    use master_test_variables	
+    exec sh -c "rm -rf $(lin_debug)/*"
+    exec sh -c "rm -rf $(lin_release)/*"
+    exec sh -c "rm -rf $(lin_debug64)/*"
+    exec sh -c "rm -rf $(lin_release64)/*"
+    exec sh -c "rm -rf $(gen_lin_debug)/*"
+    exec sh -c "rm -rf $(gen_lin_release)/*"
+    exec sh -c "rm -rf $(gen_lin_debug64)/*"
+    exec sh -c "rm -rf $(gen_lin_release64)/*"
+
+[clean.Lin]
+    do clean.Lin.Bin
+    do clean.Lin.Test.Bin
+    use variables.common     
+    exec sh -c "rm -rf $(lint_path)/*"             
+    exec sh -c "rm -rf $(cc_path)/*"                 
+    exec sh -c "rm -rf $(gen_lint_path)/*"         
+    exec sh -c "rm -rf $(gen_cc_path)/*" 
+              
+[clean.Mac.Bin]
+    use variables	
+    exec sh -c "rm -rf $(mac_debug)/*"
+    exec sh -c "rm -rf $(mac_release)/*"
+    exec sh -c "rm -rf $(mac_debug64)/*"
+    exec sh -c "rm -rf $(mac_release64)/*"
+    exec sh -c "rm -rf $(gen_mac_debug)/*"
+    exec sh -c "rm -rf $(gen_mac_release)/*"
+    exec sh -c "rm -rf $(gen_mac_debug64)/*"
+    exec sh -c "rm -rf $(gen_mac_release64)/*"
+
+[clean.Mac.Test.Bin]    
+    use master_test_variables	
+    exec sh -c "rm -rf $(mac_debug)/*"
+    exec sh -c "rm -rf $(mac_release)/*"
+    exec sh -c "rm -rf $(mac_debug64)/*"
+    exec sh -c "rm -rf $(mac_release64)/*"
+    exec sh -c "rm -rf $(gen_mac_debug)/*"
+    exec sh -c "rm -rf $(gen_mac_release)/*"
+    exec sh -c "rm -rf $(gen_mac_debug64)/*"
+    exec sh -c "rm -rf $(gen_mac_release64)/*"
+
+[clean.Mac]
+    do clean.Mac.Bin
+    do clean.Mac.Test.Bin
+    use variables.common     
+    exec sh -c "rm -rf $(lint_path)/*"             
+    exec sh -c "rm -rf $(cc_path)/*"                 
+    exec sh -c "rm -rf $(gen_lint_path)/*"         
+    exec sh -c "rm -rf $(gen_cc_path)/*"   
+
+###################################################################################################################################################################
+
+#############################################################Lint################################
+#Generates lint
+[LintIncludes]
+	apply [module_dep_includes]--->[-i%%/]
+	
+[LintSources]
+	use module_include
+	var files = $$(INPUT)
+	
+[lint]      
+    use ChooseBuildMode  
+	do lint32.$(__OS__)
+
+[lint32.Win]
+	env VSx86
+	use module_target
+	use module_variables
+	use LintIncludes
+	use LintSources
+        use op_sys
+        use var.$(os)
+	do makedir.lint
+	exec $(path).manage\lint\lint-nt -v -e686 -elib(*) -libdir($(path)) -libclass(foreign)  $(path).manage/TallyWorld.lnt -w2 -b -i$(path).manage\lint\ std.lnt env-vc10.lnt $(files) -oo($(gen_lint_path)$(name)_$(__OS__)_32.lob)
+
+[lint64]
+    use ChooseBuildMode
+        do lin64.$(__OS__)
+
+[lin64.Win]
+	env VSx64
+	use module_target
+	use module_variables
+	use LintIncludes
+	use LintSources
+    use op_sys
+    use var.$(os)
+	do makedir.lint
+	var file = $(files)
+	exec $(path).manage\lint\lint-nt -v -e686 -elib(*) -libdir($(path)) -libclass(foreign) -w2 -b $(path).manage/TallyWorld.lnt -i$(path).manage\lint std64.lnt env-vc10.lnt $(file) -oo($(gen_lint_path)$(name)_$(__OS__)_64.lob)
+	
+################################################################################### END #####################################################################################
+
+
+#############################################################Lint################################
+#Generates doxygen
+[dox]   
+    use ChooseBuildMode  
+    use basefolder
+    do $(path).manage/config.maya@do_dox
+    
+[do_dox] 
+	do dox.$(__OS__)
+
+[dox.Win]
+        env VSx86
+	use module_target
+	use module_variables
+        use op_sys
+        use var.$(os)
+        do makedir.dox
+        exec_nc $(path).manage\doxygen\doxygen.exe $(path).manage/TallyWorld.cfg
+
+################################################################################### END ###############################
+############################################################# CPPUnit ################################
+#Cpp Unit test exe.
+
+[CppUnitPath]
+    use basepath
+    var cpp_main_src_path = $(path)"xlibs/cppunit/twsrc/main.cpp"
+[test_path_common_includes]
+    use ChooseTestMode
+    use op_sys
+    use module_variables
+    use module_target
+    use ext
+    
+[win_release_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(win_release)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+
+[win_release64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(win_release64)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[win_debug_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(win_debug)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[win_debug64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(win_debug64)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[lin_release_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(lin_release)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+
+[lin_release64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(lin_release64)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[lin_debug_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(lin_debug)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[lin_debug64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(lin_debug64)/"
+    var test_binary_path = "$(name)$(ext_exe)"    
+    
+[mac_release_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(mac_release)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+
+[mac_release64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(mac_release64)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[mac_debug_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(mac_debug)/"
+    var test_binary_path = "$(name)$(ext_exe)"
+    
+[mac_debug64_test_exe_path]
+    use test_path_common_includes
+    var test_folder      = "$(mac_debug64)/"
+    var test_binary_path = "$(name)$(ext_exe)"  
+    
+[execute_test]
+    cd $(test_folder)
+    exec $(test_binary_path) 
+    
+[test]
+    use ChooseTestMode
+    do buildtest
+    use op_sys
+    use $(os)_release_test_exe_path
+    do  execute_test
+    
+[dtest]
+   use ChooseTestMode
+   do builddtest
+   use op_sys
+   use $(os)_debug_test_exe_path
+   do  execute_test
+   
+[test64]
+   use ChooseTestMode
+   do buildtest64
+   use op_sys
+   use $(os)_release64_test_exe_path
+   do  execute_test
+   
+[dtest64]
+   use ChooseTestMode
+   do builddtest64
+   use op_sys
+   use $(os)_debug64_test_exe_path
+   do  execute_test
+    
+#Block to generated debug build (x86)
+[builddtest]
+    use ChooseTestMode
+	use module_target
+	use basefolder
+	use op_sys
+    use module_variables
+    use cc
+	use [module_dep_libs]--->[do $(path)%%/config.maya@debug]
+	do makedir.$(os)
+	do debug.$(os).$(type)
+    
+#Block to generated debug build (x64)
+[builddtest64]
+    use ChooseTestMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@debug64]
+	do makedir.$(os)
+	do debug64.$(os).$(type)
+	
+#Block to generated release build (x86)
+[buildtest]
+    use ChooseTestMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@release]
+	do makedir.$(os)
+	do release.$(os).$(type)
+
+#Block to generated release build (x64)
+[buildtest64]
+    use ChooseTestMode
+	use module_target
+	use basefolder
+	use op_sys
+	use [module_dep_libs]--->[do $(path)%%/config.maya@release64]
+	do makedir.$(os)
+	do release64.$(os).$(type)
+
+############################################################ END ###############################
+##################################### Module config includes For Build ##############################
+[ChooseTestMode]        
+    var build_or_test = "master_test_"
+
+[ChooseBuildMode]
+    var build_or_test = ""
+    
+[module_target]
+    use $(build_or_test)target
+
+[module_include]
+    use $(build_or_test)include
+    
+[module_dep_includes]
+    use $(build_or_test)dep_includes
+    
+[module_dep_libs]
+    use $(build_or_test)dep_libs
+    
+[module_dep_objs]
+    use $(build_or_test)dep_objs
+    
+[module_win_compiler_flags]
+    use $(build_or_test)win_compiler_flags
+    
+[module_lin_compiler_flags]
+    use $(build_or_test)lin_compiler_flags
+    
+[module_mac_compiler_flags]
+    use $(build_or_test)mac_compiler_flags
+    
+[module_win_linker_flags]
+    use $(build_or_test)win_linker_flags
+    
+[module_lin_linker_flags]
+    use $(build_or_test)lin_linker_flags
+    
+[module_mac_linker_flags]
+    use $(build_or_test)mac_linker_flags
+    
+## TEST internally include all the source include files... Hence the duplication of test with TEST
+[master_test_target]
+    use target
+    var testmodulename = "$(name)"
+	var name = "$(testmodulename)_test"
+	var type = "exe"	
+    
+[master_test_include]
+    var test_main     = "$(path)xlibs/cppunit/twsrc/main.cpp"
+    use target
+    + $(test_main)
+    use include
+    use test_include
+    use master_test_target
+
+    
+[master_test_dep_includes]
+    + $(path)xlibs/cppunit/includes/
+    + $(path)xlibs/cppunit/twsrc/
+    use dep_includes
+    use test_dep_includes
+
+[master_test_dep_libs]
+    use dep_libs
+    use test_dep_libs
+	+ xlibs/cppunit/.cppunit
+    
+[master_test_dep_objs]
+    use dep_objs
+    use test_dep_objs
+    
+[master_test_win_compiler_flags]
+    use test_win_compiler_flags
+    var my_compiler_debug_flags = "/D TEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug_flags)
+    var my_compiler_debug64_flags = "/D TEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug64_flags)
+    var my_compiler_release_flags = "/D TEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release_flags)
+    var my_compiler_release64_flags = "/D TEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release64_flags)
+        
+[master_test_lin_compiler_flags]
+    use test_lin_compiler_flags
+    var my_compiler_debug_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug_flags)
+    var my_compiler_debug64_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug64_flags)
+    var my_compiler_release_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release_flags)
+    var my_compiler_release64_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release64_flags)
+    
+[master_test_mac_compiler_flags]
+    use test_mac_compiler_flags
+    var my_compiler_debug_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug_flags)
+    var my_compiler_debug64_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_debug64_flags)
+    var my_compiler_release_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release_flags)
+    var my_compiler_release64_flags = "-DTEST_SUITE_NAME=\"$(testmodulename)\" $(my_compiler_release64_flags)
+    
+[master_test_win_linker_flags]
+    use test_win_linker_flags
+    
+[master_test_lin_linker_flags]
+    use test_lin_linker_flags
+    
+[master_test_mac_linker_flags]
+    use test_mac_linker_flags
+    
+############################################################ END ###############################
+############################################################ Module config includes For Test ###############################
+############################################################ END ###############################
+################################################################################### END #####################################################################################
+################################################################CodeCheck########################################
+[CCIncludes]
+	apply [dep_includes]--->[-i%%/]
+	var ccHeaderPaths = $$(INPUT)
+
+[CCSourceFiles]
+	use include
+	var files = $$(INPUT)
+	
+[codecheck]
+    use ChooseBuildMode    
+	do codecheck.$(__OS__)
+	
+[codecheck.Win]
+    env VSx86
+	use target
+	use CCIncludes
+	use module_variables
+	use codecheck_flags
+    use op_sys
+    use var.$(os)
+	use CCSourceFiles
+    do makedir.codecheck
+    exec_nc $(path).manage\codecheck\chknt.exe -k7 -s1 $(module_cc_flag) -R$(path).manage\codecheck\tspl -o$(gen_cc_path)/err.log $(ccHeaderPaths) -L -Q$(gen_cc_path) $(files)
+
+################################################################################### END #####################################################################################
