@@ -1,0 +1,347 @@
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport>cd exe 
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>maya fullclean  
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>maya -v debug release debug64 release64 
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /Fogen/win_debug_32/class_cpp.obj /Tpsrc/class.cpp
+class.cpp
+lib /NOLOGO  gen/win_debug_32/class_cpp.obj /out:bin/win_debug_32/library1.lib
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /Fogen/win_debug_32/data_cpp.obj /Tpsrc/data.cpp
+data.cpp
+lib /NOLOGO  gen/win_debug_32/data_cpp.obj /out:bin/win_debug_32/library2.lib
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /Fogen/win_debug_32/function_cpp.obj /Tpsrc/function.cpp
+function.cpp
+lib /NOLOGO  gen/win_debug_32/function_cpp.obj /out:bin/win_debug_32/library3.lib
+
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_32/main_cpp.obj /Tpsrc/main.cpp
+main.cpp
+link ../lib.library1/bin/win_debug_32/library1.lib ../lib.library2/bin/win_debug_32/library2.lib ../lib.library3/bin/win_debug_32/library3.lib gen/win_debug_32/main_cpp.obj /out:bin/win_debug_32/exportingexe.exe /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib  /PDB:bin/win_debug_32/exportingexe.pdb
+   Creating library bin/win_debug_32/exportingexe.lib and object bin/win_debug_32/exportingexe.exp
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /Fogen/win_release_32/class_cpp.obj /Tpsrc/class.cpp
+class.cpp
+lib /NOLOGO  gen/win_release_32/class_cpp.obj /out:bin/win_release_32/library1.lib
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /Fogen/win_release_32/data_cpp.obj /Tpsrc/data.cpp
+data.cpp
+lib /NOLOGO  gen/win_release_32/data_cpp.obj /out:bin/win_release_32/library2.lib
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /Fogen/win_release_32/function_cpp.obj /Tpsrc/function.cpp
+function.cpp
+lib /NOLOGO  gen/win_release_32/function_cpp.obj /out:bin/win_release_32/library3.lib
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_32/main_cpp.obj /Tpsrc/main.cpp
+main.cpp
+link ../lib.library1/bin/win_release_32/library1.lib ../lib.library2/bin/win_release_32/library2.lib ../lib.library3/bin/win_release_32/library3.lib gen/win_release_32/main_cpp.obj /out:bin/win_release_32/exportingexe.exe /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib  /PDB:bin/win_release_32/exportingexe.pdb
+   Creating library bin/win_release_32/exportingexe.lib and object bin/win_release_32/exportingexe.exp
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /Fogen/win_debug_64/class_cpp.obj /Tpsrc/class.cpp
+class.cpp
+lib /NOLOGO  gen/win_debug_64/class_cpp.obj /out:bin/win_debug_64/library1.lib
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /Fogen/win_debug_64/data_cpp.obj /Tpsrc/data.cpp
+data.cpp
+lib /NOLOGO  gen/win_debug_64/data_cpp.obj /out:bin/win_debug_64/library2.lib
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /Fogen/win_debug_64/function_cpp.obj /Tpsrc/function.cpp
+function.cpp
+lib /NOLOGO  gen/win_debug_64/function_cpp.obj /out:bin/win_debug_64/library3.lib
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_64/main_cpp.obj /Tpsrc/main.cpp
+main.cpp
+link ../lib.library1/bin/win_debug_64/library1.lib ../lib.library2/bin/win_debug_64/library2.lib ../lib.library3/bin/win_debug_64/library3.lib gen/win_debug_64/main_cpp.obj /out:bin/win_debug_64/exportingexe.exe /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib  /PDB:bin/win_debug_64/exportingexe.pdb
+   Creating library bin/win_debug_64/exportingexe.lib and object bin/win_debug_64/exportingexe.exp
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /Fogen/win_release_64/class_cpp.obj /Tpsrc/class.cpp
+class.cpp
+lib /NOLOGO  gen/win_release_64/class_cpp.obj /out:bin/win_release_64/library1.lib
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /Fogen/win_release_64/data_cpp.obj /Tpsrc/data.cpp
+data.cpp
+lib /NOLOGO  gen/win_release_64/data_cpp.obj /out:bin/win_release_64/library2.lib
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /Fogen/win_release_64/function_cpp.obj /Tpsrc/function.cpp
+function.cpp
+lib /NOLOGO  gen/win_release_64/function_cpp.obj /out:bin/win_release_64/library3.lib
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DLIB_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_64/main_cpp.obj /Tpsrc/main.cpp
+main.cpp
+link ../lib.library1/bin/win_release_64/library1.lib ../lib.library2/bin/win_release_64/library2.lib ../lib.library3/bin/win_release_64/library3.lib gen/win_release_64/main_cpp.obj /out:bin/win_release_64/exportingexe.exe /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib  /PDB:bin/win_release_64/exportingexe.pdb
+   Creating library bin/win_release_64/exportingexe.lib and object bin/win_release_64/exportingexe.exp
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>cd ..\dll.svr1 
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr1>maya fullclean  
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr1>maya -v debug release debug64 release64 
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_32/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_debug_32/print_cpp.obj /DLL /out:bin/win_debug_32/svr1.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_debug_32/exportingexe.lib /PDB:bin/win_debug_32/svr1.pdb
+   Creating library bin/win_debug_32/svr1.lib and object bin/win_debug_32/svr1.exp
+cp bin/win_debug_32/svr1.dll ../exe/bin/win_debug_32/
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_32/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_release_32/print_cpp.obj /DLL /out:bin/win_release_32/svr1.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_release_32/exportingexe.lib /PDB:bin/win_release_32/svr1.pdb
+   Creating library bin/win_release_32/svr1.lib and object bin/win_release_32/svr1.exp
+cp bin/win_release_32/svr1.dll ../exe/bin/win_release_32/
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_64/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_debug_64/print_cpp.obj /DLL /out:bin/win_debug_64/svr1.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_debug_64/exportingexe.lib /PDB:bin/win_debug_64/svr1.pdb
+   Creating library bin/win_debug_64/svr1.lib and object bin/win_debug_64/svr1.exp
+cp bin/win_debug_64/svr1.dll ../exe/bin/win_debug_64/
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_64/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_release_64/print_cpp.obj /DLL /out:bin/win_release_64/svr1.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_release_64/exportingexe.lib /PDB:bin/win_release_64/svr1.pdb
+   Creating library bin/win_release_64/svr1.lib and object bin/win_release_64/svr1.exp
+cp bin/win_release_64/svr1.dll ../exe/bin/win_release_64/
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr1>cd ..\dll.svr2 
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr2>maya fullclean  
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr2>maya -v debug release debug64 release64 
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_32/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_debug_32/print_cpp.obj /DLL /out:bin/win_debug_32/svr2.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_debug_32/exportingexe.lib /PDB:bin/win_debug_32/svr2.pdb
+   Creating library bin/win_debug_32/svr2.lib and object bin/win_debug_32/svr2.exp
+cp bin/win_debug_32/svr2.dll ../exe/bin/win_debug_32/
+cl /c /Z7 /W3 /DNDEBUG /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gr /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_32/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_release_32/print_cpp.obj /DLL /out:bin/win_release_32/svr2.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_release_32/exportingexe.lib /PDB:bin/win_release_32/svr2.pdb
+   Creating library bin/win_release_32/svr2.lib and object bin/win_release_32/svr2.exp
+cp bin/win_release_32/svr2.dll ../exe/bin/win_release_32/
+cl /c /Z7 /W3 /Od /MTd /DDEBUG /D_DEBUG /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_debug_64/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_debug_64/print_cpp.obj /DLL /out:bin/win_debug_64/svr2.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_debug_64/exportingexe.lib /PDB:bin/win_debug_64/svr2.pdb
+   Creating library bin/win_debug_64/svr2.lib and object bin/win_debug_64/svr2.exp
+cp bin/win_debug_64/svr2.dll ../exe/bin/win_debug_64/
+cl /c /Z7 /W3 /Ox /MT /D _UNICODE /D UNICODE /EHsc /Gd /analyze- /errorReport:queue /DDLL_IMPLEMENTATION -DUTF16_BUILD /WX  /D_CRT_SECURE_NO_WARNINGS /D_CRT_NON_CONFORMING_SWPRINTFS /nologo /FC  /Isrc /I../.manage /I../lib.library1/src /I../lib.library2/src /I../lib.library3/src /Fogen/win_release_64/print_cpp.obj /Tpsrc/print.cpp
+print.cpp
+link  gen/win_release_64/print_cpp.obj /DLL /out:bin/win_release_64/svr2.dll /NOLOGO /INCREMENTAL:NO /DEBUG /OPT:REF Shlwapi.lib Ws2_32.lib ../exe/bin/win_release_64/exportingexe.lib /PDB:bin/win_release_64/svr2.pdb
+   Creating library bin/win_release_64/svr2.lib and object bin/win_release_64/svr2.exp
+cp bin/win_release_64/svr2.dll ../exe/bin/win_release_64/
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\dll.svr2>cd ..\exe 
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>bin\win_debug_32\exportingexe.exe
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+size of structure is 2
+EXE exporting
+ExternFunc1: 00E61470
+ExternFunc2: 00E61480
+ExternFunc3: 00E61490
+InlineFunc1: 00E61360
+ExternNonExported: 00E614A0
+A::B::ExternFunc1: 00E614B0
+A::B::ExternFunc2: 00E614D0
+A::B::ExternFunc3: 00E614E0
+Class Static: TString::GetStaticTStringPointer00E613C0
+Class Static: TString::GetStaticTString: 00E613D0
+Class Static: TString::SetStaticTString00E613E0
+GetFileStaticPointer: 00E8E168
+&gStr2: 00E82450
+&gStructInstance: 00E8E164
+GetStaticTString Abhishek
+size of structure is 2
+size of structure is 2
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 2 importing
+ExternFunc1: 00E61470
+ExternFunc2: 00E61480
+ExternFunc3: 00E61490
+InlineFunc1: 66B61250
+A::B::ExternFunc1: 00E614B0
+A::B::ExternFunc2: 00E614D0
+A::B::ExternFunc3: 00E614E0
+Class Static: TString::GetStaticTStringPointer00E613C0
+Class Static: TString::GetStaticTString: 00E613D0
+Class Static: TString::SetStaticTString00E613E0
+GetFileStaticPointer: 00E8E168
+&gStr2: 00E82450
+&gStructInstance: 00E8E164
+GetStaticTString Abhishek
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 1 importing
+ExternFunc1: 00E61470
+ExternFunc2: 00E61480
+ExternFunc3: 00E61490
+InlineFunc1: 66C012C0
+A::B::ExternFunc1: 00E614B0
+A::B::ExternFunc2: 00E614D0
+A::B::ExternFunc3: 00E614E0
+Class Static: TString::GetStaticTStringPointer00E613C0
+Class Static: TString::GetStaticTString: 00E613D0
+Class Static: TString::SetStaticTString00E613E0
+GetFileStaticPointer: 00E8E168
+&gStr2: 00E82450
+&gStructInstance: 00E8E164
+GetStaticTString Abhishek
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>bin\win_debug_64\exportingexe.exe
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+size of structure is 2
+EXE exporting
+ExternFunc1: 00007FF73B4914C0
+ExternFunc2: 00007FF73B4914E0
+ExternFunc3: 00007FF73B491500
+InlineFunc1: 00007FF73B491390
+ExternNonExported: 00007FF73B491510
+A::B::ExternFunc1: 00007FF73B491530
+A::B::ExternFunc2: 00007FF73B491550
+A::B::ExternFunc3: 00007FF73B491560
+Class Static: TString::GetStaticTStringPointer00007FF73B491400
+Class Static: TString::GetStaticTString: 00007FF73B491410
+Class Static: TString::SetStaticTString00007FF73B491420
+GetFileStaticPointer: 00007FF73B4C86CC
+&gStr2: 00007FF73B4BA630
+&gStructInstance: 00007FF73B4C86C8
+GetStaticTString Abhishek
+size of structure is 2
+size of structure is 2
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 2 importing
+ExternFunc1: 00007FF73B4914C0
+ExternFunc2: 00007FF73B4914E0
+ExternFunc3: 00007FF73B491500
+InlineFunc1: 00007FF819921270
+A::B::ExternFunc1: 00007FF73B491530
+A::B::ExternFunc2: 00007FF73B491550
+A::B::ExternFunc3: 00007FF73B491560
+Class Static: TString::GetStaticTStringPointer00007FF73B491400
+Class Static: TString::GetStaticTString: 00007FF73B491410
+Class Static: TString::SetStaticTString00007FF73B491420
+GetFileStaticPointer: 00007FF73B4C86CC
+&gStr2: 00007FF73B4BA630
+&gStructInstance: 00007FF73B4C86C8
+GetStaticTString Abhishek
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 1 importing
+ExternFunc1: 00007FF73B4914C0
+ExternFunc2: 00007FF73B4914E0
+ExternFunc3: 00007FF73B491500
+InlineFunc1: 00007FF8199B12F0
+A::B::ExternFunc1: 00007FF73B491530
+A::B::ExternFunc2: 00007FF73B491550
+A::B::ExternFunc3: 00007FF73B491560
+Class Static: TString::GetStaticTStringPointer00007FF73B491400
+Class Static: TString::GetStaticTString: 00007FF73B491410
+Class Static: TString::SetStaticTString00007FF73B491420
+GetFileStaticPointer: 00007FF73B4C86CC
+&gStr2: 00007FF73B4BA630
+&gStructInstance: 00007FF73B4C86C8
+GetStaticTString Abhishek
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>bin\win_release_32\exportingexe.exe
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+size of structure is 2
+EXE exporting
+ExternFunc1: 01321360
+ExternFunc2: 01321370
+ExternFunc3: 01321380
+InlineFunc1: 01321290
+ExternNonExported: 01321390
+A::B::ExternFunc1: 013213A0
+A::B::ExternFunc2: 013213B0
+A::B::ExternFunc3: 013213C0
+Class Static: TString::GetStaticTStringPointer013212D0
+Class Static: TString::GetStaticTString: 013212E0
+Class Static: TString::SetStaticTString013212F0
+GetFileStaticPointer: 01335148
+&gStr2: 0132E440
+&gStructInstance: 01335144
+GetStaticTString Abhishek
+size of structure is 2
+size of structure is 2
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 2 importing
+ExternFunc1: 01321360
+ExternFunc2: 01321370
+ExternFunc3: 01321380
+InlineFunc1: 66C011D0
+A::B::ExternFunc1: 013213A0
+A::B::ExternFunc2: 013213B0
+A::B::ExternFunc3: 013213C0
+Class Static: TString::GetStaticTStringPointer013212D0
+Class Static: TString::GetStaticTString: 013212E0
+Class Static: TString::SetStaticTString013212F0
+GetFileStaticPointer: 01335148
+&gStr2: 0132E440
+&gStructInstance: 01335144
+GetStaticTString Abhishek
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 1 importing
+ExternFunc1: 01321360
+ExternFunc2: 01321370
+ExternFunc3: 01321380
+InlineFunc1: 66C211F0
+A::B::ExternFunc1: 013213A0
+A::B::ExternFunc2: 013213B0
+A::B::ExternFunc3: 013213C0
+Class Static: TString::GetStaticTStringPointer013212D0
+Class Static: TString::GetStaticTString: 013212E0
+Class Static: TString::SetStaticTString013212F0
+GetFileStaticPointer: 01335148
+&gStr2: 0132E440
+&gStructInstance: 01335144
+GetStaticTString Abhishek
+
+D:\work\pop.TallyWorld\slib.base\poc\exeexport\exe>bin\win_release_64\exportingexe.exe
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+size of structure is 2
+EXE exporting
+ExternFunc1: 00007FF658D413C0
+ExternFunc2: 00007FF658D413D0
+ExternFunc3: 00007FF658D413E0
+InlineFunc1: 00007FF658D412D0
+ExternNonExported: 00007FF658D413F0
+A::B::ExternFunc1: 00007FF658D41400
+A::B::ExternFunc2: 00007FF658D41410
+A::B::ExternFunc3: 00007FF658D41420
+Class Static: TString::GetStaticTStringPointer00007FF658D41320
+Class Static: TString::GetStaticTString: 00007FF658D41330
+Class Static: TString::SetStaticTString00007FF658D41340
+GetFileStaticPointer: 00007FF658D5964C
+&gStr2: 00007FF658D50610
+&gStructInstance: 00007FF658D59648
+GetStaticTString Abhishek
+size of structure is 2
+size of structure is 2
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 2 importing
+ExternFunc1: 00007FF658D413C0
+ExternFunc2: 00007FF658D413D0
+ExternFunc3: 00007FF658D413E0
+InlineFunc1: 00007FF8206D1210
+A::B::ExternFunc1: 00007FF658D41400
+A::B::ExternFunc2: 00007FF658D41410
+A::B::ExternFunc3: 00007FF658D41420
+Class Static: TString::GetStaticTStringPointer00007FF658D41320
+Class Static: TString::GetStaticTString: 00007FF658D41330
+Class Static: TString::SetStaticTString00007FF658D41340
+GetFileStaticPointer: 00007FF658D5964C
+&gStr2: 00007FF658D50610
+&gStructInstance: 00007FF658D59648
+GetStaticTString Abhishek
+Executing InlineFunc1 - ModifiedTString::InlineFuncTString returned true
+TString::FuncNewTString returned true
+
+SVR 1 importing
+ExternFunc1: 00007FF658D413C0
+ExternFunc2: 00007FF658D413D0
+ExternFunc3: 00007FF658D413E0
+InlineFunc1: 00007FF820871230
+A::B::ExternFunc1: 00007FF658D41400
+A::B::ExternFunc2: 00007FF658D41410
+A::B::ExternFunc3: 00007FF658D41420
+Class Static: TString::GetStaticTStringPointer00007FF658D41320
+Class Static: TString::GetStaticTString: 00007FF658D41330
+Class Static: TString::SetStaticTString00007FF658D41340
+GetFileStaticPointer: 00007FF658D5964C
+&gStr2: 00007FF658D50610
+&gStructInstance: 00007FF658D59648
+GetStaticTString Abhishek
